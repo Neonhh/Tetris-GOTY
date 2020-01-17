@@ -10,7 +10,7 @@ func _physics_process(delta):
 
 		if stuck:
 			speed = stuck_body.max_speed
-			direction = stuck_body.direction
+			direction = stuck_body.motion/speed
 		
 		collision = move_and_collide(direction * speed * delta)
 		
