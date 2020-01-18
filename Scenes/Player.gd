@@ -3,7 +3,7 @@ extends KinematicBody2D
 export(float) var max_speed = 350.0
 
 var motion = Vector2.ZERO
-
+var direction
 var velocity_direction = Vector2()
 
 func _ready() -> void:
@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-		var direction = get_direction()   #Obtiene vetores directores de norma 1
+		direction = get_direction()   #Obtiene vetores directores de norma 1
 		                                  #También revisa si las teclas están presionadas 
 	
 		if direction == Vector2.ZERO:           #Si no hay teclas presionadas, desacelera.
