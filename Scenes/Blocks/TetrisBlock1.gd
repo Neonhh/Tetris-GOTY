@@ -6,9 +6,10 @@ var collision
 var stuck = false
 var stuck_body
 var type
+onready var grid = get_parent()
 
 func _ready():
-	type = get_parent().ENTITY_TYPES.BLOCK
+	type = grid.ENTITY_TYPES.FBLOCK
 
 func _physics_process(delta):
 
