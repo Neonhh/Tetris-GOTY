@@ -5,22 +5,26 @@ export(float) var max_speed = 350.0
 var motion = Vector2.ZERO
 var direction
 var velocity_direction = Vector2()
-
+var type
 func _ready() -> void:
+	
+	type = get_parent().ENTITY_TYPES.PLAYER
 	$AnimatedSprite.play("default")
 
 func _physics_process(delta: float) -> void:
 	
-		direction = get_direction()   #Obtiene vetores directores de norma 1
-		                                  #También revisa si las teclas están presionadas 
-	
+	direction = get_direction()   #Obtiene vetores directores de norma 1
+	                                #También revisa si las teclas están presionadas 
+	"""
 		if direction == Vector2.ZERO:           #Si no hay teclas presionadas, desacelera.
 			motion = Vector2.ZERO
 		else:                                  #Si las hay, acelera.
 			motion = direction * max_speed
 		
 		motion = move_and_slide(motion)
-	
+	"""
+	var target_pos = get_parent().update_child_pos(self)
+	position = target_pos
 		#Obtén la dirección y velocidad del movimiento.
 func get_direction():
 	#Da 1 o -1 dependiendo de la dirección, 0 si la dirección no se puede definir (ninguna o ambas teclas presionadas)

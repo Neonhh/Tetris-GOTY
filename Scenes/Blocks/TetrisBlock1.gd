@@ -5,7 +5,10 @@ var direction = Vector2.DOWN
 var collision
 var stuck = false
 var stuck_body
+var type
 
+func _ready():
+	type = get_parent().ENTITY_TYPES.BLOCK
 
 func _physics_process(delta):
 
