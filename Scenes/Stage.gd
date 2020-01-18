@@ -6,8 +6,8 @@ enum ENTITY_TYPES{EMPTY = -1,PLAYER,BLOCK,WALL}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for child in get_children():
-		pass
 		set_cellv(world_to_map(child.position),child.type)
+		print(str([world_to_map(child.position),child.type]))
 
 func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
 	for node in get_children():

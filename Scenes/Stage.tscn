@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Stage.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/type.gd" type="Script" id=2]
@@ -17,6 +17,9 @@ animations = [ {
 "name": "Normal",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 80, 16 )
 
 [node name="Grid" type="TileMap"]
 cell_size = Vector2( 32, 32 )
@@ -58,3 +61,11 @@ animation = "Normal"
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 400, 448 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 400, 272 )
+script = ExtResource( 2 )
+type = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 4 )
