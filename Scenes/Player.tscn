@@ -31,5 +31,4 @@ position = Vector2( 0.514178, 0.507013 )
 scale = Vector2( 1.01718, 1.03387 )
 shape = SubResource( 2 )
 
-[node name="Upside" type="Position2D" parent="."]
-position = Vector2( 0, -16.9361 )
+[node name="Tween" type="Tween" parent="."]

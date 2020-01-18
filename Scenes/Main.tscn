@@ -6,7 +6,6 @@
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
 
-[node name="Player" parent="Grid" index="2"]
-max_speed = 3500.0
-
 [editable path="Grid"]
+
+[editable path="Grid/Player"]

@@ -9,7 +9,7 @@ var type
 onready var grid = get_parent()
 
 func _ready():
-	type = grid.ENTITY_TYPES.FBLOCK
+	type = grid.ENTITY_TYPES.BLOCK
 
 func _physics_process(delta):
 

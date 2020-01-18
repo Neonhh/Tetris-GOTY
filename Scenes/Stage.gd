@@ -1,43 +1,36 @@
 extends TileMap
 
 # Declare member variables here. Examples:
-var tile_size = get_cell_size()
-var half_tile_size = tile_size / 2
-
-var grid_size = Vector2(25,21)
-var grid = []
-
-enum ENTITY_TYPES{PLAYER,FBLOCK,LBLOCK}
-
-onready var Tetromino = preload("res://Scenes/Blocks/TetrisBlock1.tscn")
+enum ENTITY_TYPES{EMPTY = -1,PLAYER,BLOCK,WALL}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
-	#Grid setup
-	for x in range(grid_size.x):
-		grid.append([])
-		for y in range(grid_size.y):
-			grid[x].append(null)
+	for child in get_children():
+		pass
+		set_cellv(world_to_map(child.position),child.type)
 
-func cell_is_vacant(checker):
-	
-	var pos = checker.position
-	var direction = checker.current_direction
-	var grid_pos = world_to_map(pos) + direction
-	
-	if (grid_pos.x < grid_size.x) and (grid_pos.x >= 0):
-		if grid_pos.y < grid_size.y and grid_pos.y >= 0:
-			return true if grid[grid_pos.x][grid_pos.y] == null or grid[grid_pos.x][grid_pos.y] == checker.type  else false
-	return false
+func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
+	for node in get_children():
+		if node.type != type:
+			continue
+		if world_to_map(node.position) == cell:
+			return node
 
-func update_child_pos(child:Node2D):
+
+func request_move(pawn,direction):
+	var cell_start = world_to_map(pawn.position)
+	var cell_target = cell_start + direction
+	print("a")
+	var target_tile_id = get_cellv(cell_target)
 	
-	var grid_pos = world_to_map(child.position)
-	grid[grid_pos.x][grid_pos.y] = null
+	match target_tile_id:
+		ENTITY_TYPES.EMPTY:
+			set_cellv(cell_start, ENTITY_TYPES.EMPTY)
+			set_cellv(cell_target, pawn.type)
+			print("Yeehaw!")
+			return map_to_world(cell_target)
+		
+		ENTITY_TYPES.BLOCK, ENTITY_TYPES.PLAYER, ENTITY_TYPES.WALL:
+			var pawn_name = get_cell_pawn(cell_target,target_tile_id).name
+			print("Cell %s is occupied by %s"%[cell_target,pawn_name])
 	
-	var new_pos = grid_pos + world_to_map(child.direction)
-	grid[new_pos.x][new_pos.y] = child.type
-	
-	var new_grid_pos = map_to_world(new_pos)
-	return new_grid_pos
