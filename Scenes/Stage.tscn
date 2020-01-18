@@ -20,6 +20,7 @@ animations = [ {
 
 [node name="Grid" type="TileMap"]
 cell_size = Vector2( 32, 32 )
+cell_quadrant_size = 25
 format = 1
 script = ExtResource( 1 )
 

@@ -15,6 +15,7 @@ func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
 			continue
 		if world_to_map(node.position) == cell:
 			return node
+		return $Player
 
 
 func request_move(pawn,direction):
