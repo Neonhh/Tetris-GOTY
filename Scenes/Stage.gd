@@ -1,37 +1,34 @@
 extends TileMap
 
-# Declare member variables here. Examples:
 enum ENTITY_TYPES{EMPTY = -1,PLAYER,BLOCK,WALL}
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	for child in get_children():
+	for child in get_children(): #Marca las que están ocupadas
 		set_cellv(world_to_map(child.position),child.type)
 		print(str([world_to_map(child.position),child.type]))
 
 func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
-	for node in get_children():
-		if node.type != type:
+	for node in get_children(): #Toma una celda y su marca
+		if node.type != type:   #Devuelve el nodo que está en la celda.
 			continue
 		if world_to_map(node.position) == cell:
 			return node
-		return $Player
-
 
 func request_move(pawn,direction):
-	var cell_start = world_to_map(pawn.position)
+	var cell_start = world_to_map(pawn.position)  #Chequea si no hay cuerpos en la celda objetivo, entonces coloca las marcas correspondientes.
 	var cell_target = cell_start + direction
-	print("a")
 	var target_tile_id = get_cellv(cell_target)
 	
 	match target_tile_id:
-		ENTITY_TYPES.EMPTY:
+		ENTITY_TYPES.EMPTY:    #Marca la celda objetivo como ocupada, y la celda inicial como vacía.
+			
 			set_cellv(cell_start, ENTITY_TYPES.EMPTY)
 			set_cellv(cell_target, pawn.type)
-			print("Yeehaw!")
+			
 			return map_to_world(cell_target)
 		
-		ENTITY_TYPES.BLOCK, ENTITY_TYPES.PLAYER, ENTITY_TYPES.WALL:
+		ENTITY_TYPES.BLOCK, ENTITY_TYPES.PLAYER, ENTITY_TYPES.WALL: #No es posible el movimiento
+			
 			var pawn_name = get_cell_pawn(cell_target,target_tile_id).name
-			print("Cell %s is occupied by %s"%[cell_target,pawn_name])
-	
+			
+			print("La celda %s tiene a %s en ella"%[cell_target,pawn_name])

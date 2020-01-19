@@ -13,20 +13,7 @@ func _ready():
 
 func _physics_process(delta):
 
-		if stuck and stuck_body.direction.y != -1:
-			position = stuck_body.get_node("Upside").get_global_position()
-		
-		collision = move_and_collide(direction * speed * delta)
-		
-		if collision: #Collision será null hasta que el objeto choque. En ese momento, se activa este if.
-			collision_response(collision.get_collider())
-		else:
-			speed = 20.0
-	
-
-func collision_response(body):
-	if body.name == "Player":
-		stuck = true
-		stuck_body = body
-		
-	
+	var target_position = grid.request_move(self, direction)
+	if target_position:
+		grid.get_node("Player").move_to(target_position)
+		$Tween.start()

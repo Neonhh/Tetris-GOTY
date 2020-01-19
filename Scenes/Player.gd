@@ -1,10 +1,8 @@
-extends "res://Scenes/type.gd"
+extends "res://Scenes/type.gd" #Trae la variable usada para marcar las celdas
 
 var direction
-
-
-
 onready var grid = get_parent()
+
 func _ready() -> void:
 	$AnimatedSprite.play("default")
 
@@ -12,10 +10,10 @@ func _physics_process(delta: float) -> void:
 	
 	direction = get_direction()   #Obtiene vetores directores de norma 1
 	                                #También revisa si las teclas están presionadas 
-	if not direction:
-		return
+	if not direction:  
+		return #No se requiere movimiento
 	
-	var target_position = grid.request_move(self, direction)
+	var target_position = grid.request_move(self, direction) #Chequea colisiones y limite del grid
 	
 	if target_position:
 		move_to(target_position)
@@ -33,11 +31,11 @@ func get_direction():
 	return direction.normalized()
 
 func move_to(target_position):
-	set_process(false)
+	set_process(false) #No recibir nuevas señales hasta que este movimiento termine
 	var move_direction = (target_position - position).normalized()
-	var offset = grid.cell_size/2
+	
 	$Tween.interpolate_property($AnimatedSprite,"position", -move_direction*16, Vector2(), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	position = target_position
+	position = target_position #Nos movemos hasta el punto instantáneamente, el Sprite pasa por un Tween para dare un efecto pro.
 	
 	yield($Tween, "tween_completed")
 	set_process(true)
