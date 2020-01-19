@@ -7,7 +7,7 @@ var landed = false
 onready var grid = get_parent()
 
 func _ready():
-	set_process(false)
+	grid.get_node("Player").connect("moved",self,"_on_Player_moved")
 
 func _on_Timer_timeout():
 	var target_position = grid.request_move(self, direction)
@@ -19,8 +19,14 @@ func _on_Timer_timeout():
 		get_sticky_body()
 	
 func move_to(target):	
-	$Tween.interpolate_property($Sprite,"position", -direction*16, Vector2(), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	
+	var move_direction = (target - position).normalized()
+	
+	$Tween.interpolate_property($Sprite,"position", -move_direction*16, Vector2(), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	yield($Tween, "tween_started")
 	position = target
+	
+	yield($Tween, "tween_completed")
 
 func get_sticky_body():
 	var cell_start = grid.world_to_map(position)
