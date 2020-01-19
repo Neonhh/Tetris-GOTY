@@ -3,6 +3,8 @@ extends "res://Scenes/type.gd" #Trae la variable usada para marcar las celdas
 var direction
 onready var grid = get_parent()
 
+signal moved(direction)
+
 func _ready() -> void:
 	$Sprite.play("default")
 
@@ -17,6 +19,7 @@ func _physics_process(delta: float) -> void:
 	
 	if target_position:
 		move_to(target_position)
+		emit_signal("moved",direction)
 		$Tween.start()
 	
 		#Obtén la dirección y velocidad del movimiento.

@@ -62,3 +62,4 @@ position = Vector2( 416, 448 )
 
 [node name="TetrisBlock1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 429.089, 160 )
+[connection signal="moved" from="Player" to="TetrisBlock1" method="_on_Player_moved"]
