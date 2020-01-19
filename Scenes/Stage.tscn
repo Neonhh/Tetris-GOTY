@@ -3,6 +3,7 @@
 [ext_resource path="res://Scenes/Stage.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/type.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Blocks/TetrisBlock1.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 410, 10 )
@@ -17,9 +18,6 @@ animations = [ {
 "name": "Normal",
 "speed": 5.0
 } ]
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 80, 16 )
 
 [node name="Grid" type="TileMap"]
 cell_size = Vector2( 32, 32 )
@@ -60,12 +58,7 @@ frames = SubResource( 3 )
 animation = "Normal"
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 400, 448 )
+position = Vector2( 416, 448 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 400, 272 )
-script = ExtResource( 2 )
-type = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource( 4 )
+[node name="TetrisBlock1" parent="." instance=ExtResource( 4 )]
+position = Vector2( 429.089, 160 )

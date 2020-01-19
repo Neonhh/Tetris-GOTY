@@ -4,7 +4,7 @@ var direction
 onready var grid = get_parent()
 
 func _ready() -> void:
-	$AnimatedSprite.play("default")
+	$Sprite.play("default")
 
 func _physics_process(delta: float) -> void:
 	
@@ -34,7 +34,7 @@ func move_to(target_position):
 	set_process(false) #No recibir nuevas señales hasta que este movimiento termine
 	var move_direction = (target_position - position).normalized()
 	
-	$Tween.interpolate_property($AnimatedSprite,"position", -move_direction*16, Vector2(), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property($Sprite,"position", -move_direction*16, Vector2(), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	position = target_position #Nos movemos hasta el punto instantáneamente, el Sprite pasa por un Tween para dare un efecto pro.
 	
 	yield($Tween, "tween_completed")

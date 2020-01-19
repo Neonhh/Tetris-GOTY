@@ -5,7 +5,6 @@ enum ENTITY_TYPES{EMPTY = -1,PLAYER,BLOCK,WALL}
 func _ready():
 	for child in get_children(): #Marca las que están ocupadas
 		set_cellv(world_to_map(child.position),child.type)
-		print(str([world_to_map(child.position),child.type]))
 
 func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
 	for node in get_children(): #Toma una celda y su marca
@@ -13,6 +12,7 @@ func get_cell_pawn(cell, type = ENTITY_TYPES.PLAYER):
 			continue
 		if world_to_map(node.position) == cell:
 			return node
+	return get_node("Player")
 
 func request_move(pawn,direction):
 	var cell_start = world_to_map(pawn.position)  #Chequea si no hay cuerpos en la celda objetivo, entonces coloca las marcas correspondientes.
