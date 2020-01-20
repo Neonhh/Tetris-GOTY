@@ -5,8 +5,10 @@ var sticky_body
 var prev_sticky_pos 
 var landed = false
 onready var grid = get_parent()
+onready var hitbox_matrix = [[1]] 
 
 func _ready():
+	type = ENTITY_TYPES.BLOCK
 	grid.get_node("Player").connect("moved",self,"_on_Player_moved")
 
 func _on_Timer_timeout():
@@ -16,13 +18,14 @@ func _on_Timer_timeout():
 		$Tween.start()
 	
 	else:
+		type = ENTITY_TYPES.LANDED_BLOCK
 		get_sticky_body()
 	
 func move_to(target):	
 	
 	var move_direction = (target - position).normalized()
 	
-	$Tween.interpolate_property($Sprite,"position", -move_direction*16, Vector2(), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property($Sprite,"position", -move_direction*16, Vector2(), 0.2, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	yield($Tween, "tween_started")
 	position = target
 	

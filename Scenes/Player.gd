@@ -2,11 +2,14 @@ extends "res://Scenes/type.gd" #Trae la variable usada para marcar las celdas
 
 var direction
 onready var grid = get_parent()
-
 signal moved(direction)
+onready var hitbox_matrix = [[1,1,1,1,1],[0,0,0,0,0]]
 
 func _ready() -> void:
+	type = ENTITY_TYPES.PLAYER
 	$Sprite.play("default")
+	print(str(grid.map_to_world(position)))
+	#Generando la matriz para la Hitbox
 
 func _physics_process(delta: float) -> void:
 	
