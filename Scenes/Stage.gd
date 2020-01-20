@@ -32,11 +32,12 @@ func request_move(pawn,direction):
 			ENTITY_TYPES.EMPTY:    #Marca la celda objetivo como ocupada, y la celda inicial como vacía.
 				
 				cell_start = world_to_map(pawn.position) #Reset a las variables, para que vuelvan a la posición "0" (sin sumar la celda de colisión)
-				cell_target = cell_start + direction
 				
-				process_hitbox_matrix(pawn.hitbox_matrix,cell_start,ENTITY_TYPES.EMPTY) #Cambia el tipo de VARIAS celdas segun la matriz dada.
+				
+				if pawn.type == ENTITY_TYPES.PLAYER: print(cell_target)
+				process_hitbox_matrix(pawn.hitbox_matrix,pawn.position + cell_start,ENTITY_TYPES.EMPTY) #Cambia el tipo de VARIAS celdas segun la matriz dada.
 				#set_cellv(cell_start, ENTITY_TYPES.EMPTY)
-				process_hitbox_matrix(pawn.hitbox_matrix,cell_target,pawn.type)
+				process_hitbox_matrix(pawn.hitbox_matrix,pawn.position + cell_target,pawn.type)
 				#set_cellv(cell_target, pawn.type)
 				
 				return map_to_world(cell_target)
